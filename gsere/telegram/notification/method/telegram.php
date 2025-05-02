@@ -8,6 +8,8 @@
 */
 namespace gsere\telegram\notification\method;
 
+use phpbb\notification\type\type_interface;
+
 /**
 * Telegram notification method class
 * This class handles sending Telegram messages for notifications
@@ -46,8 +48,12 @@ class telegram extends \phpbb\notification\method\messenger_base
 	/**
 	* Is this method available for the user?
 	* This is checked on the notifications options
+	*
+	* @param type_interface $notification_type	An optional instance of a notification type. This method returns false
+	*											only if the type is provided and if it doesn't provide an email template.
+	* @return bool
 	*/
-	public function is_available()
+	public function is_available(type_interface $notification_type = null)
 	{
 		return ($this->global_available() && (strlen($this->user->data['user_telegram']) > 2));
 	}
